@@ -267,7 +267,8 @@ inputs:
       name: PackageFilter
 outputs:
   - name: packages
-    type: PackagesList
+    type:
+      name: PackagesList
 description: |
   An actor to list all installed packages
 execute:
