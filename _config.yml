@@ -1,3 +1,6 @@
 theme: jekyll-theme-tactile
-markdown: redcarpet
-highlighter: pygments
+
+pygments:        true
+markdown:        redcarpet
+redcarpet:
+	  extensions: [:smart, :fenced_code, :gh_blockcode]
