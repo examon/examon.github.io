@@ -12,14 +12,14 @@ Lets get a script to list all installed packages at a Fedora machine and place t
 $ ls
 list_packages.sh
 
-$ cat list_packages.sh 
+$ cat list_packages.sh
 rpm -qa > packages.txt
 
-$ bash list_packages.sh 
+$ bash list_packages.sh
 $ ls
 list_packages.sh  packages.txt
 
-$ head -5 packages.txt 
+$ head -5 packages.txt
 python3-pytest-pep8-1.0.6-9.fc26.noarch
 pcre-8.41-1.fc26.x86_64
 python2-fedora-0.9.0-6.fc26.noarch
@@ -56,7 +56,6 @@ Our directory structure will look like this:
     └── list_packages
         ├── _actor.yaml
         └── list_packages.sh
-
 ```
 
 
@@ -94,7 +93,7 @@ If we run this script we can verify that our actor was executed by checking the 
 │       └── list_packages.sh
 └── execute.py
 
-$ ./execute.py 
+$ ./execute.py
 
 (...)
 ├── actors
@@ -130,7 +129,11 @@ execute:
   script-file: list_packages.sh
 ```
 
-We should list under *inputs* a name identifier and a type for each input data that our script will receive. Here we are defining a **filter** input of type **PackageFilter**. With snactor all data used as input or output for an actor is formatted as JSON and the used schema is defined, using JSL, by the provided type. That way we need to tell snactor how **PackageFilter** type looks like. We will save such definition in a Python file named **packagefilter.py** and save it under a directory named **schemas**. All these names are arbitrary and you can change them as you wish.
+We should list under *inputs* a name identifier and a type for each input data that our script will receive.
+Here we are defining a **filter** input of type **PackageFilter**.
+With snactor all data used as input or output for an actor is formatted as JSON and the used schema is defined, using JSL, by the provided type.
+That way we need to tell snactor how **PackageFilter** type looks like.
+We will save such definition in a Python file named **packagefilter.py**:
 
 ```py
 from jsl import Document
@@ -142,6 +145,9 @@ from snactor.registry.schemas import registered_schema
 class PackageFilter(Document):
     value = StringField()
 ```
+
+and save it under a directory named **schemas**:
+
 ```
 ├── actors
 │   └── list_packages
@@ -150,12 +156,13 @@ class PackageFilter(Document):
 ├── execute.py
 └── schemas
     └── packagefilter.py
-
 ```
+
+All these names are arbitrary and you can change them as you wish.
 
 With input data defined we need to change our script to receive such input and filter the list of package with it:
 
-```
+```shell
 input=""
 while read line; do
   input+=${line}
@@ -170,6 +177,7 @@ rpm -qa | grep ${filter} > packages.txt
 ```
 
 Finally, to be able to test it, we should change our **executor.py** script to pass some filter string to our actor:
+
 ```py
 #!/usr/bin/env python
 import os
@@ -210,7 +218,7 @@ python2-iniparse-0.4-24.fc26.noarch
 
 Right now, we are saving the generated package list to a text file. That is fine, but what if we want to pass such a list for another actor in the same way we passed filter string to this one? To support that we can define and actor's outputs in the same way we defined the inputs. So, let's change our actor to return the package list as output data.
 
-As we did before, first step is update actor's yaml to describe output. We will add an out put named **packages** of type **PackagesList**:
+As we did before, first step is update actor's yaml to describe output. We will add an output named **packages** of type **PackagesList**:
 
 ```yaml
 ---
@@ -228,7 +236,8 @@ execute:
   script-file: list_packages.sh
 ```
 
-Next, we should tell snactor what **PackagesList** is. For that, let's add **packageslist.py** under **schemas** directory:
+Next, we should tell snactor what **PackagesList** is.
+Create **packageslist.py**:
 
 ```py
 from jsl import ArrayField, Document
@@ -240,6 +249,9 @@ from snactor.registry.schemas import registered_schema
 class PackagesList(Document):
     entries = ArrayField(StringField())
 ```
+
+and put it inside the **schemas** directory:
+
 ```
 ├── actors
 │   └── list_packages
@@ -253,7 +265,7 @@ class PackagesList(Document):
 
 Now, we have to change our bash script to output data with the specified format:
 
-```
+```shell
 input=""
 while read line; do
   input+=${line}
