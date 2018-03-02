@@ -30,10 +30,19 @@
               <a class="nav-item is-tab" href="/architecture" id="architecture">
                 Architecture
               </a>
+              <a class="nav-item is-tab" href="/devenv" id="devenv">
+                Development environment
+              </a>
+              <a class="nav-item is-tab" href="/installation" id="installation">
+                Installing Leapp
+              </a>
               <a class="nav-item is-tab" href="/actors" id="actors">
                 Actors
               </a>
-              <a class="nav-item is-tab" target="_blank" href="/apidoc/index.html" onclick="event.stopPropagation();">
+              <a class="nav-item is-tab" href="/actorguidelines" id="actorguidelines">
+                Actor Guidelines
+              </a>
+              <a class="nav-item is-tab" target="_blank" href="/shins/index.html" onclick="event.stopPropagation();">
                 API
               </a>
             </div>
@@ -85,6 +94,15 @@
                     break;
                 case "/actors":
                     swapActive("actors");
+                    break;
+                case "/devenv":
+                    swapActive("devenv");
+                    break;
+                case "/installation":
+                    swapActive("installation");
+                    break;
+                case "/actorguidelines":
+                    swapActive("actorguidelines");
                     break;
             }
   </script>
