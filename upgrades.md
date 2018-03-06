@@ -1,5 +1,3 @@
-<div class="content">
-
 # In-place upgrade workflow
 
 | Phase         | Description |
@@ -25,5 +23,3 @@
 | Reboot | <li>Reboot into the new system</li> |
 | **`UPGRADED SYSTEM FROM HERE`** | |
 | First Boot | |
-
-</div>
