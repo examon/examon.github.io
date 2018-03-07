@@ -1,5 +1,11 @@
 # In-place upgrade workflow
 
+---
+
+[Diagram of the phases](img/phases.png)
+
+---
+
 ## Facts Collection
 - Operating System Version Detection, IP, Hostname, RPMs, Services, Augeas run
 
