@@ -2,7 +2,7 @@
 
 ---
 
-[Diagram of the phases](img/phases.png)
+[Click here to open diagram of the phases](img/phases.png)
 
 ---
 
